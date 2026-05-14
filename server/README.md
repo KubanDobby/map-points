@@ -7,7 +7,8 @@ curl -X POST http://localhost:3000/points \
 -H "Content-Type: application/json" \
 -d '{
   "lng": 30.5,
-  "lat": 50.4
+  "lat": 50.4,
+  "camp": "friend"
 }'
 ```
 
