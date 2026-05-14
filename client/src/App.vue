@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 
 interface Point {
@@ -82,6 +82,10 @@ async function createPoint() {
     loading.value = false
   }
 }
+
+onMounted(() => {
+  loadPoints()
+})
 </script>
 
 <template>
