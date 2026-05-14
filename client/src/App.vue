@@ -86,6 +86,7 @@ async function createPoint() {
 
 <template>
   <div>Map Points</div>
+  <pre>{{ points }}</pre>
 </template>
 
 <style scoped>
