@@ -10,18 +10,10 @@ pub async fn create_pool() -> SqlitePool {
         .await
         .expect("DB connect failed");
 
-    sqlx::query(
-        r#"
-        CREATE TABLE IF NOT EXISTS points (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            lng REAL NOT NULL,
-            lat REAL NOT NULL
-        );
-        "#,
-    )
-    .execute(&pool)
-    .await
-    .expect("Create table failed");
+    sqlx::migrate!("./migrations")
+        .run(&pool)
+        .await
+        .expect("Migration failed");
 
     pool
 }

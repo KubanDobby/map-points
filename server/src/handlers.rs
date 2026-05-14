@@ -21,12 +21,13 @@ pub async fn create_point(
 
     let result = sqlx::query(
         r#"
-        INSERT INTO points (lng, lat)
-        VALUES (?, ?)
+        INSERT INTO points (lng, lat, camp)
+        VALUES (?, ?, ?)
         "#,
     )
     .bind(payload.lng)
     .bind(payload.lat)
+    .bind(payload.camp)
     .execute(&pool)
     .await?;
 
@@ -36,6 +37,7 @@ pub async fn create_point(
         id,
         lng: payload.lng,
         lat: payload.lat,
+        camp: payload.camp,
     }))
 }
 
@@ -44,7 +46,7 @@ pub async fn get_points(
 ) -> Result<Json<Vec<Point>>, AppError> {
     let points = sqlx::query_as::<_, Point>(
         r#"
-        SELECT id, lng, lat
+        SELECT id, lng, lat, camp
         FROM points
         ORDER BY id DESC
         "#,
